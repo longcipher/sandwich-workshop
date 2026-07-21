@@ -1,0 +1,21 @@
+{
+  "name": "sandwich-workshop",
+  "version": "2.0.0",
+  "description": "Educational UniswapV2 sandwich attack bot and contracts",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "bot",
+    "contracts"
+  ],
+  "scripts": {
+    "build:contracts": "cd contracts && forge build",
+    "test:contracts": "cd contracts && forge test",
+    "start:bot": "cd bot && yarn bot",
+    "lint:bot": "cd bot && yarn lint",
+    "clean": "cd contracts && forge clean && cd ../bot && rm -rf node_modules"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

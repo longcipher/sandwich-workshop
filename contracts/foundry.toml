@@ -1,0 +1,17 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["dependencies"]
+solc = "0.8.24"
+optimizer = true
+optimizer_runs = 999999
+evm_version = "london"
+
+[dependencies]
+"forge-std" = { version = "1.9.2", git = "https://github.com/foundry-rs/forge-std.git", rev = "1714bee72e286e73f76e320d110e0eaf5c4e649d" }
+
+[rpc_endpoints]
+mainnet = "${ETH_RPC_URL}"
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }

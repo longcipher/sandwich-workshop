@@ -1,0 +1,15 @@
+{
+  "name": "sandwich-workshop-contracts",
+  "version": "2.0.0",
+  "description": "Sandwich attack contracts for UniswapV2",
+  "license": "MIT",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "test:gas": "forge test --gas-report",
+    "deploy": "forge script script/DeploySandwich.s.sol --rpc-url $ETH_RPC_URL --broadcast --verify",
+    "clean": "forge clean",
+    "snapshot": "forge snapshot"
+  },
+  "devDependencies": {}
+}
