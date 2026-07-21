@@ -57,3 +57,5 @@ pnpm-debug.log*
 
 # Package manager
 .pnpm-store/
+out/
+cache/
