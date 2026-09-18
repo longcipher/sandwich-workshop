@@ -11,6 +11,8 @@
   "scripts": {
     "build:contracts": "cd contracts && forge build",
     "test:contracts": "cd contracts && forge test",
+    "test:fork": "node bot/test/fork-sandwich.js",
+    "anvil:fork": "anvil --fork-url $ETH_RPC_URL --balance 10000",
     "start:bot": "node bot/index.js",
     "clean": "cd contracts && forge clean && cd .. && rm -rf node_modules bot/node_modules contracts/node_modules"
   },
