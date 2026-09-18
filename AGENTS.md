@@ -13,10 +13,17 @@
 
 ## Workspace Rules (Critical)
 
-1. Never manually edit dependency versions in `package.json`; use yarn.
-2. Root-level devDependencies belong in root `package.json`.
-3. Workspace-specific dependencies belong in workspace `package.json`.
-4. Always commit lock files (`yarn.lock`).
+1. Never manually edit dependency versions in `package.json`; use `vp add` / `vp remove` / `vp update`.
+2. All dependency versions are pinned (exact, no ranges) in the root `package.json` `dependencies`; workspace `package.json` files declare no versions (metadata and scripts only) and resolve via hoisting.
+3. Always commit lock files (`package-lock.json`).
+
+## Toolchain (Vite+)
+
+- Package management: `vp install` / `vp add` / `vp remove` (npm workspaces, single root `package-lock.json`).
+- Validation: `vp check` (format + lint + typecheck); `vp fmt` / `vp lint` for a single concern.
+- JS tests: `vp test` (config lives in the `test` block of `vite.config.ts`).
+- Contracts: `forge build` / `forge test` in `contracts/` (`vp build` does not apply, no frontend bundle).
+- Node version is pinned in root `.node-version`.
 
 ## Engineering Principles
 

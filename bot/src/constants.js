@@ -1,25 +1,25 @@
 // Globals
-import { createRequire } from 'module';
+import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 
 dotenv.config();
 
-import { ethers } from 'ethers';
-import { logError } from './logging.js';
+import { ethers } from "ethers";
+import { logError } from "./logging.js";
 
-const IUniswapV2PairAbi = require('./abi/IUniswapV2Pair.json');
+const IUniswapV2PairAbi = require("./abi/IUniswapV2Pair.json");
 
 let hasEnv = true;
 
 const ENV_VARS = [
-  'RPC_URL',
-  'RPC_URL_WSS',
-  'PRIVATE_KEY',
-  'FLASHBOTS_AUTH_KEY',
-  'SANDWICH_CONTRACT',
+  "RPC_URL",
+  "RPC_URL_WSS",
+  "PRIVATE_KEY",
+  "FLASHBOTS_AUTH_KEY",
+  "SANDWICH_CONTRACT",
 ];
 
 for (let i = 0; i < ENV_VARS.length; i++) {
@@ -35,7 +35,7 @@ if (!hasEnv) {
 
 // Contracts
 export const CONTRACTS = {
-  UNIV2_ROUTER: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
+  UNIV2_ROUTER: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
 
   // Sandwich contract
   SANDWICH: process.env.SANDWICH_CONTRACT,
@@ -43,8 +43,8 @@ export const CONTRACTS = {
 
 // Helpful tokens for testing
 export const TOKENS = {
-  WETH: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-  USDC: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+  WETH: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+  USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
 };
 
 // Providers (ethers v6)

@@ -1,9 +1,9 @@
 {
   "name": "sandwich-workshop",
   "version": "2.0.0",
-  "description": "Educational UniswapV2 sandwich attack bot and contracts",
-  "license": "MIT",
   "private": true,
+  "description": "Educational UniswapV2 sandwich attack bot and contracts",
+  "license": "Apache-2.0",
   "workspaces": [
     "bot",
     "contracts"
@@ -11,9 +11,30 @@
   "scripts": {
     "build:contracts": "cd contracts && forge build",
     "test:contracts": "cd contracts && forge test",
-    "start:bot": "cd bot && yarn bot",
-    "lint:bot": "cd bot && yarn lint",
-    "clean": "cd contracts && forge clean && cd ../bot && rm -rf node_modules"
+    "start:bot": "node bot/index.js",
+    "clean": "cd contracts && forge clean && cd .. && rm -rf node_modules bot/node_modules contracts/node_modules"
+  },
+  "dependencies": {
+    "@ethereumjs/common": "10.1.3",
+    "@ethereumjs/tx": "10.1.3",
+    "abi-decoder": "2.4.0",
+    "chalk": "6.0.0",
+    "dotenv": "18.0.0",
+    "ethers": "6.17.0",
+    "node-fetch": "3.3.2"
+  },
+  "devDependencies": {
+    "vite-plus": "0.3.3"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.3.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "12.0.2",
+      "onFail": "download"
+    }
   },
   "engines": {
     "node": ">=20.0.0"

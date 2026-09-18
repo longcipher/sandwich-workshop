@@ -1,6 +1,6 @@
-import { ethers } from 'ethers';
-import { uniswapV2Pair } from './constants.js';
-import { match } from './utils.js';
+import { ethers } from "ethers";
+import { uniswapV2Pair } from "./constants.js";
+import { match } from "./utils.js";
 
 /*
   Sorts tokens
@@ -20,9 +20,9 @@ export const getUniv2PairAddress = (tokenA, tokenB) => {
 
   const salt = ethers.keccak256(ethers.concat([token0, token1]));
   const address = ethers.getCreate2Address(
-    '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', // Factory address (contract creator)
+    "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f", // Factory address (contract creator)
     salt,
-    '0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f', // init code hash
+    "0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f", // init code hash
   );
 
   return address;
@@ -61,7 +61,7 @@ export const getUniv2DataGivenIn = (aIn, reserveA, reserveB) => {
   // Overflow
   let newReserveA = reserveA + aIn;
   if (newReserveA < reserveA) {
-    newReserveA = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+    newReserveA = BigInt("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
   }
 
   return {
@@ -90,7 +90,7 @@ export const getUniv2DataGivenOut = (bOut, reserveA, reserveB) => {
   // Overflow
   let newReserveA = reserveA + aAmountIn;
   if (newReserveA < reserveA) {
-    newReserveA = BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+    newReserveA = BigInt("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
   }
 
   return {

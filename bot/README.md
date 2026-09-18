@@ -110,11 +110,11 @@ SANDWICH_CONTRACT=0x...
 ### Installation
 
 ```bash
-# Install dependencies
-yarn install
+# Install dependencies (from repo root)
+vp install
 
-# Start the bot
-yarn bot
+# Start the bot (from repo root)
+npm run start:bot
 ```
 
 ## Development
@@ -135,10 +135,10 @@ The codebase follows a modular design:
 // The profit function is not normally distributed,
 // so we use binary search to find the optimal input
 const optimalWethIn = binarySearch(
-  0,                    // Lower bound
-  parseUnits("100"),    // Upper bound (100 ETH)
-  calculateProfit,      // Profit calculation function
-  isProfitable          // Condition checker
+  0, // Lower bound
+  parseUnits("100"), // Upper bound (100 ETH)
+  calculateProfit, // Profit calculation function
+  isProfitable, // Condition checker
 );
 ```
 
@@ -154,15 +154,15 @@ const states = calcSandwichState(
   userAmountIn,
   userMinRecv,
   reserveWeth,
-  reserveToken
+  reserveToken,
 );
 ```
 
 ## Testing
 
 ```bash
-# Run with debug logging
-DEBUG=* yarn bot
+# Run with debug logging (inside bot/)
+DEBUG=* npm run bot
 
 # Check for syntax errors
 node --check index.js
@@ -181,6 +181,7 @@ Check that `RPC_URL_WSS` is a valid WebSocket endpoint.
 ### "Bundle Rejected"
 
 Common reasons:
+
 - Insufficient gas
 - Transaction too old
 - Bundle simulation failed
@@ -190,6 +191,7 @@ Common reasons:
 ### Why JavaScript?
 
 JavaScript was chosen for accessibility:
+
 - Large community and documentation
 - Easy to understand for beginners
 - No compilation required
@@ -198,6 +200,7 @@ JavaScript was chosen for accessibility:
 ### Limitations
 
 This simplified bot does not include:
+
 - Circuit breakers
 - Poison token detection
 - Multi-hop path optimization

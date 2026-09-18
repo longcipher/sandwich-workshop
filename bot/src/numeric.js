@@ -1,7 +1,7 @@
-import { ethers, parseUnits } from 'ethers';
-import { getUniv2DataGivenIn } from './univ2.js';
+import { parseUnits } from "ethers";
+import { getUniv2DataGivenIn } from "./univ2.js";
 
-const BN_18 = parseUnits('1');
+const BN_18 = parseUnits("1");
 
 /*
   Binary search to find optimal sandwichable amount
@@ -13,7 +13,7 @@ export const binarySearch = (
   right, // Upper bound
   calculateF, // Generic calculate function
   passConditionF, // Condition checker
-  tolerance = parseUnits('0.01'), // Tolerable delta (in %, in 18 dec, i.e. parseUnits('0.01') means left and right delta can be 1%)
+  tolerance = parseUnits("0.01"), // Tolerable delta (in %, in 18 dec, i.e. parseUnits('0.01') means left and right delta can be 1%)
 ) => {
   if (right - left > (tolerance * (right + left)) / 2n / BN_18) {
     const mid = (right + left) / 2n;
@@ -73,8 +73,8 @@ export const calcSandwichOptimalIn = (
   // Upper bound will be 100 ETH (hardcoded, or however much ETH you have on hand)
   // Feel free to optimize and change it
   // It shouldn't be hardcoded hehe....
-  const lowerBound = parseUnits('0');
-  const upperBound = parseUnits('100');
+  const lowerBound = parseUnits("0");
+  const upperBound = parseUnits("100");
 
   // Optimal WETH in to push reserve to the point where the user
   // _JUST_ receives their min recv

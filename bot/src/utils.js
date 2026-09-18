@@ -1,5 +1,3 @@
-import { ethers } from 'ethers';
-
 // GM I hate JS
 export const match = (a, b, caseIncensitive = true) => {
   if (a === null || a === undefined) return false;
@@ -24,14 +22,14 @@ export const match = (a, b, caseIncensitive = true) => {
 export const stringifyBN = (o, toHex = false) => {
   if (o === null || o === undefined) {
     return o;
-  } else if (typeof o === 'bigint') {
+  } else if (typeof o === "bigint") {
     if (toHex) {
-      return '0x' + o.toString(16);
+      return "0x" + o.toString(16);
     }
     return o.toString();
   } else if (Array.isArray(o)) {
     return o.map((x) => stringifyBN(x, toHex));
-  } else if (typeof o === 'object') {
+  } else if (typeof o === "object") {
     const res = {};
     const keys = Object.keys(o);
     keys.forEach((k) => {
@@ -44,11 +42,11 @@ export const stringifyBN = (o, toHex = false) => {
 };
 
 export const toRpcHexString = (bn) => {
-  let val = '0x' + bn.toString(16);
-  val = val.replace(/^0x0+/, '0x');
+  let val = "0x" + bn.toString(16);
+  val = val.replace(/^0x0+/, "0x");
 
-  if (val === '0x') {
-    val = '0x0';
+  if (val === "0x") {
+    val = "0x0";
   }
 
   return val;

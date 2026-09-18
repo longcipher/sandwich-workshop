@@ -57,8 +57,8 @@ This project provides a practical example of how sandwich attacks work on Uniswa
 git clone https://github.com/your-username/sandwich-workshop.git
 cd sandwich-workshop
 
-# Install bot dependencies
-cd bot && yarn install
+# Install dependencies (npm workspaces via Vite+)
+vp install
 
 # Install Foundry (if not already installed)
 curl -L https://foundry.paradigm.xyz | bash
@@ -92,8 +92,7 @@ forge script script/DeploySandwich.s.sol \
 ### 4. Run the Bot
 
 ```bash
-cd bot
-yarn bot
+npm run start:bot
 ```
 
 ## Project Structure
@@ -135,7 +134,7 @@ The bot connects to an Ethereum node via WebSocket and listens for pending trans
 wssProvider.on("pending", (txHash) =>
   sandwichUniswapV2RouterTx(txHash).catch((e) => {
     logFatal(`txhash=${txHash} error ${JSON.stringify(e)}`);
-  })
+  }),
 );
 ```
 
@@ -153,12 +152,7 @@ if (routerDataDecoded === null) return; // Not a swap we can sandwich
 The bot uses binary search to find the optimal amount to front-run:
 
 ```javascript
-const optimalWethIn = binarySearch(
-  lowerBound,
-  upperBound,
-  calculateProfit,
-  passCondition
-);
+const optimalWethIn = binarySearch(lowerBound, upperBound, calculateProfit, passCondition);
 ```
 
 ### 4. Bundle Construction
@@ -176,7 +170,7 @@ The bundle is submitted privately to Flashbots, preventing front-running:
 ```javascript
 const bundleResp = await sendBundleFlashbots(
   [frontsliceTxSigned, middleTx, backsliceTxSignedWithBribe],
-  targetBlockNumber
+  targetBlockNumber,
 );
 ```
 
@@ -189,6 +183,7 @@ x * y = k
 ```
 
 Where:
+
 - `x` = reserve of token A
 - `y` = reserve of token B
 - `k` = constant product
@@ -202,6 +197,7 @@ Where:
 ### Flashbots Protection
 
 Flashbots provides:
+
 - **Pre-trade privacy**: Transactions are not visible in public mempool
 - **No failed trade cost**: Only pay if bundle is included
 - **Atomic execution**: All transactions succeed or all fail
@@ -223,10 +219,6 @@ This is a simplified educational example. Production sandwich bots typically inc
 - [UniswapV2 Documentation](https://docs.uniswap.org/contracts/v2/overview)
 - [MEV Research](https://writings.flashbots.net/)
 - [Sandwich Attacks Explained](https://medium.com/coinmonks/defi-sandwich-attack-explain-776f6f43b2fd)
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
 

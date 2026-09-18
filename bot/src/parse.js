@@ -1,10 +1,10 @@
-import { createRequire } from 'module';
+import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
-import abiDecoder from 'abi-decoder';
+import abiDecoder from "abi-decoder";
 
-const IUniswapV2RouterABI = require('./abi/IUniswapV2Router02.json');
+const IUniswapV2RouterABI = require("./abi/IUniswapV2Router02.json");
 
 // Easily decode UniswapV2 Router data
 abiDecoder.addABI(IUniswapV2RouterABI);
@@ -15,11 +15,11 @@ export const parseUniv2RouterTx = (txData) => {
   let data = null;
   try {
     data = abiDecoder.decodeMethod(txData);
-  } catch (e) {
+  } catch {
     return null;
   }
 
-  if (data.name !== 'swapExactETHForTokens') {
+  if (data.name !== "swapExactETHForTokens") {
     return null;
   }
 

@@ -1,9 +1,9 @@
 // Helpers for logging
 
-import chalk from 'chalk';
+import chalk from "chalk";
 
 export const logWarn = (...args) => {
-  console.log(chalk.hex('#FFA500')(...args));
+  console.log(chalk.hex("#FFA500")(...args));
 };
 
 export const logSuccess = (...args) => {

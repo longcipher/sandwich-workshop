@@ -1,17 +1,13 @@
-import { createRequire } from 'module';
-
-const require = createRequire(import.meta.url);
-
-import { Common } from '@ethereumjs/common';
+import { Common } from "@ethereumjs/common";
 import {
   AccessListEIP2930Transaction,
   FeeMarketEIP1559Transaction,
   LegacyTransaction,
-} from '@ethereumjs/tx';
-import { ethers } from 'ethers';
-import fetch from 'node-fetch';
-import { authKeyWallet } from './constants.js';
-import { stringifyBN, toRpcHexString } from './utils.js';
+} from "@ethereumjs/tx";
+import { ethers } from "ethers";
+import fetch from "node-fetch";
+import { authKeyWallet } from "./constants.js";
+import { toRpcHexString } from "./utils.js";
 
 let _fbId = 1;
 export const fbRequest = async (url, method, params) => {
@@ -19,17 +15,17 @@ export const fbRequest = async (url, method, params) => {
     method: method,
     params: params,
     id: _fbId++,
-    jsonrpc: '2.0',
+    jsonrpc: "2.0",
   });
 
   const signature = await authKeyWallet.signMessage(ethers.id(body));
   const headers = {
-    'X-Flashbots-Signature': `${authKeyWallet.address}:${signature}`,
-    'Content-Type': 'application/json',
+    "X-Flashbots-Signature": `${authKeyWallet.address}:${signature}`,
+    "Content-Type": "application/json",
   };
 
   const resp = await fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers,
     body,
   }).then((x) => x.json());
@@ -47,7 +43,7 @@ export const sendBundleFlashbots = async (signedTxs, targetBlockNumber) => {
       revertingTxHashes: [],
     },
   ];
-  const resp = await fbRequest('https://relay.flashbots.net', 'eth_sendBundle', params);
+  const resp = await fbRequest("https://relay.flashbots.net", "eth_sendBundle", params);
   return resp.result;
 };
 
@@ -70,9 +66,9 @@ export const sanityCheckSimulationResponse = (sim) => {
   // This has to be checked last
   const errors = sim.results
     .filter((x) => x.error !== undefined)
-    .map((x) => x.error + ' ' + (x.revert || ''));
+    .map((x) => x.error + " " + (x.revert || ""));
   if (errors.length > 0) {
-    throw new Error(errors.join(', '));
+    throw new Error(errors.join(", "));
   }
 
   return sim;
@@ -86,21 +82,21 @@ export const callBundleFlashbots = async (signedTxs, targetBlockNumber) => {
       stateBlockNumber: toRpcHexString(BigInt(targetBlockNumber - 1)),
     },
   ];
-  const resp = await fbRequest('https://relay.flashbots.net', 'eth_callBundle', params);
+  const resp = await fbRequest("https://relay.flashbots.net", "eth_callBundle", params);
   return resp.result;
 };
 
 export const getRawTransaction = (tx) => {
-  const common = new Common({ chain: 1n, hardfork: 'london' });
+  const common = new Common({ chain: 1n, hardfork: "london" });
 
   // Parse the tx data for reconstruction
   const txData = {
-    nonce: BigInt(tx.nonce || '0x0'),
+    nonce: BigInt(tx.nonce || "0x0"),
     gasPrice: tx.gasPrice ? BigInt(tx.gasPrice) : undefined,
-    gasLimit: BigInt(tx.gasLimit || '0x0'),
+    gasLimit: BigInt(tx.gasLimit || "0x0"),
     to: tx.to,
-    value: BigInt(tx.value || '0x0'),
-    data: tx.data || '0x',
+    value: BigInt(tx.value || "0x0"),
+    data: tx.data || "0x",
     chainId: 1n,
   };
 
@@ -117,15 +113,15 @@ export const getRawTransaction = (tx) => {
     // EIP-1559 transaction
     unsignedTx = FeeMarketEIP1559Transaction.fromTxData(txData, { common });
   } else {
-    throw new Error('Invalid tx type');
+    throw new Error("Invalid tx type");
   }
 
   // Get the serialized transaction
-  const raw = '0x' + unsignedTx.serialize().toString('hex');
+  const raw = "0x" + unsignedTx.serialize().toString("hex");
 
   // Verify the hash matches
   if (ethers.keccak256(raw) !== tx.hash) {
-    throw new Error('Invalid tx signature');
+    throw new Error("Invalid tx signature");
   }
 
   return raw;

@@ -2,7 +2,7 @@
   "name": "sandwich-workshop-contracts",
   "version": "2.0.0",
   "description": "Sandwich attack contracts for UniswapV2",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "forge build",
     "test": "forge test",
