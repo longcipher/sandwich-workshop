@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.37;
 
 import "./interface/IERC20.sol";
 import "./lib/SafeTransfer.sol";
@@ -27,10 +27,7 @@ contract Sandwich {
     // *** Receive profits from contract *** //
     function recoverERC20(address token) public {
         require(msg.sender == user, "shoo");
-        IERC20(token).safeTransfer(
-            msg.sender,
-            IERC20(token).balanceOf(address(this))
-        );
+        IERC20(token).safeTransfer(msg.sender, IERC20(token).balanceOf(address(this)));
     }
 
     /*
@@ -90,7 +87,7 @@ contract Sandwich {
             }
 
             // ************
-            /* 
+            /*
                 calls pair.swap(
                     tokenOutNo == 0 ? amountOut : 0,
                     tokenOutNo == 1 ? amountOut : 0,

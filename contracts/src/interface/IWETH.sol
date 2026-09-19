@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.8.0;
+pragma solidity ^0.8.37;
 
 interface IWETH {
     function name() external view returns (string memory);
@@ -9,11 +9,7 @@ interface IWETH {
 
     function totalSupply() external view returns (uint256);
 
-    function transferFrom(
-        address src,
-        address dst,
-        uint256 wad
-    ) external returns (bool);
+    function transferFrom(address src, address dst, uint256 wad) external returns (bool);
 
     function withdraw(uint256 wad) external;
 
